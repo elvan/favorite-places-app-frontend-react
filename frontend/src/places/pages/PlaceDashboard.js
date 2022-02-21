@@ -31,8 +31,11 @@ const DUMMY_PLACES = [
 ];
 
 export const PlaceDashboard = (props) => {
+  /** @type {{userId: string}} */
   const params = useParams();
+
   const userId = params.userId;
+
   const filteredPlaces = DUMMY_PLACES.filter(
     (place) => place.creator === userId
   );
