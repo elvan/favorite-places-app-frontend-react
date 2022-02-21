@@ -13,7 +13,7 @@ export const App = () => {
             <Route path='/' exact>
               <UserDashboardPage />
             </Route>
-            <Route path='/places/add' exact>
+            <Route path='/places-add' exact>
               <PlaceAddPage />
             </Route>
             <Redirect to='/' />
