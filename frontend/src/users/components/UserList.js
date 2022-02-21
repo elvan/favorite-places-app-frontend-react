@@ -1,3 +1,4 @@
+import { Card } from '../../shared/components/elements/Card';
 import { UserItem } from './UserItem';
 import './UserList.css';
 
@@ -5,7 +6,9 @@ export const UserList = ({ users }) => {
   if (users.length === 0) {
     return (
       <div className='center'>
-        <h2>No users found.</h2>
+        <Card>
+          <h2>No users found.</h2>
+        </Card>
       </div>
     );
   }
