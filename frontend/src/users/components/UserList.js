@@ -13,7 +13,7 @@ export const UserList = ({ users }) => {
   return (
     <>
       {users.length > 0 && (
-        <ul>
+        <ul className='users-list'>
           {users.map((user) => (
             <UserListItem
               key={user.id}
