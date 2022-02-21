@@ -1,3 +1,5 @@
-export const SideDrawer = () => {
-  return <div>SideDrawer</div>;
+import './SideDrawer.css';
+
+export const SideDrawer = (props) => {
+  return <aside className='side-drawer'>{props.children}</aside>;
 };
