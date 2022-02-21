@@ -1,5 +1,5 @@
+import { UserItem } from './UserItem';
 import './UserList.css';
-import { UserListItem } from './UserListItem';
 
 export const UserList = ({ users }) => {
   if (users.length === 0) {
@@ -15,7 +15,7 @@ export const UserList = ({ users }) => {
       {users.length > 0 && (
         <ul className='users-list'>
           {users.map((user) => (
-            <UserListItem
+            <UserItem
               key={user.id}
               id={user.id}
               image={user.image}
