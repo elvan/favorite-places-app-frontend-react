@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
 import { Card } from '../../shared/components/elements/Card';
+import { Map } from '../../shared/components/elements/Map';
 import { Modal } from '../../shared/components/elements/Modal';
 import { Button } from '../../shared/components/forms/Button';
 import './PlaceItem.css';
@@ -29,7 +29,7 @@ export const PlaceItem = (props) => {
         onCancel={handleCloseMap}
       >
         <div className='map-container'>
-          <h2>MAP</h2>
+          <Map center={props.location} zoom={16} className='' />
         </div>
       </Modal>
 
@@ -39,9 +39,7 @@ export const PlaceItem = (props) => {
             <img src={props.image} alt={props.title} />
           </div>
           <div className='place-item__info'>
-            <h2>
-              <Link to={`/places/${props.id}`}>{props.title}</Link>
-            </h2>
+            <h2>{props.title}</h2>
             <h3>{props.address}</h3>
             <p>{props.description}</p>
           </div>
