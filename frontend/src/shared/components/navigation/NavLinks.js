@@ -10,7 +10,7 @@ export const NavLinks = () => {
         </NavLink>
       </li>
       <li>
-        <NavLink to='/users/123/places'>
+        <NavLink to='/users/u1/places'>
           <span>MY PLACES</span>
         </NavLink>
       </li>
