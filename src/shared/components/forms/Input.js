@@ -20,14 +20,12 @@ const inputReducer = (state, action) => {
   }
 };
 
-const initialState = {
-  value: '',
-  isValid: false,
-  isTouched: false,
-};
-
 export const Input = (props) => {
-  const [state, dispatch] = useReducer(inputReducer, initialState);
+  const [state, dispatch] = useReducer(inputReducer, {
+    value: props.value || '',
+    isValid: props.value || false,
+    isTouched: false,
+  });
 
   const changeHandler = (event) => {
     // @ts-ignore

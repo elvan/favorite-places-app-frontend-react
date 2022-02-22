@@ -46,6 +46,10 @@ export const PlaceAddPage = () => {
         value: '',
         isValid: false,
       },
+      address: {
+        value: '',
+        isValid: false,
+      },
     },
     isValid: false,
   });
