@@ -63,8 +63,13 @@ export const PlaceAddPage = () => {
     [dispatch]
   );
 
+  const placeSubmitHandler = (event) => {
+    event.preventDefault();
+    console.log(state);
+  };
+
   return (
-    <form className='place-form'>
+    <form className='place-form' onSubmit={placeSubmitHandler}>
       <Input
         element='input'
         id='title'
@@ -79,6 +84,15 @@ export const PlaceAddPage = () => {
         label='Description'
         type='textarea'
         errorText='Please enter a valid description'
+        validators={[VALIDATOR_REQUIRE(), VALIDATOR_MINLENGTH(5)]}
+        onInput={inputHandler}
+      />
+      <Input
+        element='input'
+        id='address'
+        label='Address'
+        type='text'
+        errorText='Please enter a valid address'
         validators={[VALIDATOR_REQUIRE(), VALIDATOR_MINLENGTH(5)]}
         onInput={inputHandler}
       />
