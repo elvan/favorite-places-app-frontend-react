@@ -1,43 +1,15 @@
-import { useCallback, useReducer } from 'react';
 import { Button } from '../../shared/components/forms/Button';
 import { Input } from '../../shared/components/forms/Input';
+import { useForm } from '../../shared/hooks/useForm';
 import {
   VALIDATOR_MINLENGTH,
   VALIDATOR_REQUIRE,
 } from '../../shared/util/validators';
 import './PlaceAddPage.css';
 
-const formReducer = (state, action) => {
-  switch (action.type) {
-    case 'INPUT_CHANGE':
-      let formIsValid = true;
-      for (const inputId in state.inputs) {
-        if (inputId === action.inputId) {
-          formIsValid = formIsValid && action.isValid;
-        } else {
-          formIsValid = formIsValid && state.inputs[inputId].isValid;
-        }
-      }
-      return {
-        ...state,
-        inputs: {
-          ...state.inputs,
-          [action.inputId]: {
-            value: action.value,
-            isValid: action.isValid,
-          },
-        },
-        isValid: formIsValid,
-      };
-    default:
-      return state;
-  }
-};
-
 export const PlaceAddPage = () => {
-  // @ts-ignore
-  const [state, dispatch] = useReducer(formReducer, {
-    inputs: {
+  const [formState, inputHandler, setFormData, clearForm] = useForm(
+    {
       title: {
         value: '',
         isValid: false,
@@ -51,25 +23,12 @@ export const PlaceAddPage = () => {
         isValid: false,
       },
     },
-    isValid: false,
-  });
-
-  const inputHandler = useCallback(
-    (id, value, isValid) => {
-      // @ts-ignore
-      dispatch({
-        type: 'INPUT_CHANGE',
-        inputId: id,
-        value: value,
-        isValid: isValid,
-      });
-    },
-    [dispatch]
+    false
   );
 
   const placeSubmitHandler = (event) => {
     event.preventDefault();
-    console.log(state);
+    console.log(formState);
   };
 
   return (
@@ -100,7 +59,7 @@ export const PlaceAddPage = () => {
         validators={[VALIDATOR_REQUIRE(), VALIDATOR_MINLENGTH(5)]}
         onInput={inputHandler}
       />
-      <Button type='submit' disabled={!state.isValid}>
+      <Button type='submit' disabled={!formState.isValid}>
         ADD PLACE
       </Button>
     </form>

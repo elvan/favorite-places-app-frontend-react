@@ -1,6 +1,7 @@
 import { useParams } from 'react-router-dom';
 import { Button } from '../../shared/components/forms/Button';
 import { Input } from '../../shared/components/forms/Input';
+import { useForm } from '../../shared/hooks/useForm';
 import {
   VALIDATOR_MINLENGTH,
   VALIDATOR_REQUIRE,
@@ -13,6 +14,29 @@ export const PlaceEditPage = () => {
 
   const place = DUMMY_PLACES.find((place) => place.id === placeId);
 
+  const [formState, inputHandler, setFormData, clearForm] = useForm(
+    {
+      title: {
+        value: place?.title,
+        isValid: true,
+      },
+      description: {
+        value: place?.description,
+        isValid: true,
+      },
+      address: {
+        value: place?.address,
+        isValid: false,
+      },
+    },
+    false
+  );
+
+  const placeUpdateSubmitHandler = (event) => {
+    event.preventDefault();
+    console.log(formState);
+  };
+
   if (!place) {
     return (
       <div className='center'>
@@ -22,27 +46,27 @@ export const PlaceEditPage = () => {
   }
 
   return (
-    <form className='place-form'>
+    <form className='place-form' onSubmit={placeUpdateSubmitHandler}>
       <Input
         element='input'
         id='title'
         label='Title'
         type='text'
         errorText='Please enter a valid title'
-        value={place.title}
+        initialValue={formState.inputs.title.value}
+        initialValid={formState.inputs.title.isValid}
         validators={[VALIDATOR_REQUIRE(), VALIDATOR_MINLENGTH(5)]}
-        onInput={() => {}}
-        valid={true}
+        onInput={inputHandler}
       />
       <Input
         id='description'
         label='Description'
         type='textarea'
         errorText='Please enter a valid description'
-        value={place.description}
+        initialValue={formState.inputs.description.value}
+        initialValid={formState.inputs.description.isValid}
         validators={[VALIDATOR_REQUIRE(), VALIDATOR_MINLENGTH(5)]}
-        onInput={() => {}}
-        valid={true}
+        onInput={inputHandler}
       />
       <Input
         element='input'
@@ -50,12 +74,12 @@ export const PlaceEditPage = () => {
         label='Address'
         type='text'
         errorText='Please enter a valid address'
-        value={place.address}
+        initialValue={formState.inputs.address.value}
+        initialValid={formState.inputs.description.isValid}
         validators={[VALIDATOR_REQUIRE(), VALIDATOR_MINLENGTH(5)]}
-        onInput={() => {}}
-        valid={true}
+        onInput={inputHandler}
       />
-      <Button type='submit' disabled={false}>
+      <Button type='submit' disabled={!formState.isValid}>
         UPDATE PLACE
       </Button>
     </form>
