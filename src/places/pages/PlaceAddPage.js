@@ -1,4 +1,4 @@
-import Input from '../../shared/components/forms/Input';
+import { Input } from '../../shared/components/forms/Input';
 import './PlaceAddPage.css';
 
 export const PlaceAddPage = () => {
@@ -9,7 +9,7 @@ export const PlaceAddPage = () => {
         id='title'
         label='Title'
         type='text'
-        placeholder='Place Title'
+        errorText='Please enter a valid title'
         validators={[]}
         onChange={() => {}}
       />
