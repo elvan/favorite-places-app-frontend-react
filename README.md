@@ -1,1 +1,1 @@
-# favorite-places-app-react-nodejs
+# favorite-places-app-frontend-react
