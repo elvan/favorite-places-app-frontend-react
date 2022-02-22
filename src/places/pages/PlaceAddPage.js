@@ -1,3 +1,4 @@
+import { useCallback } from 'react';
 import { Input } from '../../shared/components/forms/Input';
 import {
   VALIDATOR_MINLENGTH,
@@ -6,6 +7,10 @@ import {
 import './PlaceAddPage.css';
 
 export const PlaceAddPage = () => {
+  const titleInputHandler = useCallback((id, value, isValid) => {}, []);
+
+  const descriptionInputHandler = useCallback((id, value, isValid) => {}, []);
+
   return (
     <form className='place-form'>
       <Input
@@ -15,7 +20,15 @@ export const PlaceAddPage = () => {
         type='text'
         errorText='Please enter a valid title'
         validators={[VALIDATOR_REQUIRE(), VALIDATOR_MINLENGTH(5)]}
-        onChange={() => {}}
+        onInput={titleInputHandler}
+      />
+      <Input
+        id='description'
+        label='Description'
+        type='textarea'
+        errorText='Please enter a valid description'
+        validators={[VALIDATOR_REQUIRE(), VALIDATOR_MINLENGTH(5)]}
+        onInput={descriptionInputHandler}
       />
     </form>
   );
