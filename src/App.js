@@ -1,6 +1,7 @@
 import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
 import { PlaceAddPage } from './places/pages/PlaceAddPage';
 import { PlaceDashboard } from './places/pages/PlaceDashboard';
+import { PlaceEditPage } from './places/pages/PlaceEditPage';
 import { MainNavigation } from './shared/components/navigation/MainNavigation';
 import { UserDashboardPage } from './users/pages/UserDashboardPage';
 
@@ -19,6 +20,9 @@ export const App = () => {
             </Route>
             <Route path='/places-add' exact>
               <PlaceAddPage />
+            </Route>
+            <Route path='/places-edit/:placeId' exact>
+              <PlaceEditPage />
             </Route>
             <Redirect to='/' />
           </Switch>
