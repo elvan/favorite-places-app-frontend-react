@@ -1,4 +1,5 @@
 import React, { useReducer } from 'react';
+import { validate } from '../../util/validators';
 import './Input.css';
 
 const inputReducer = (state, action) => {
@@ -7,7 +8,12 @@ const inputReducer = (state, action) => {
       return {
         ...state,
         value: action.value,
-        isValid: true,
+        isValid: validate(action.value, action.validators),
+      };
+    case 'TOUCH':
+      return {
+        ...state,
+        isTouched: true,
       };
     default:
       return state;
@@ -17,6 +23,7 @@ const inputReducer = (state, action) => {
 const initialState = {
   value: '',
   isValid: false,
+  isTouched: false,
 };
 
 export const Input = (props) => {
@@ -24,7 +31,18 @@ export const Input = (props) => {
 
   const changeHandler = (event) => {
     // @ts-ignore
-    dispatch({ type: 'CHANGE', value: event.target.value });
+    dispatch({
+      type: 'CHANGE',
+      value: event.target.value,
+      validators: props.validators,
+    });
+  };
+
+  const touchHandler = () => {
+    // @ts-ignore
+    dispatch({
+      type: 'TOUCH',
+    });
   };
 
   const element =
@@ -35,6 +53,7 @@ export const Input = (props) => {
         placeholder={props.placeholder}
         value={state.value}
         onChange={changeHandler}
+        onBlur={touchHandler}
       />
     ) : (
       <textarea
@@ -42,16 +61,19 @@ export const Input = (props) => {
         rows={props.rows || 3}
         value={state.value}
         onChange={changeHandler}
+        onBlur={touchHandler}
       />
     );
 
   return (
     <div
-      className={`form-control ${!state.isValid && 'form-control--invalid'}`}
+      className={`form-control ${
+        state.isTouched && !state.isValid && 'form-control--invalid'
+      }`}
     >
       <label htmlFor={props.id}>{props.label}</label>
       {element}
-      {!state.isValid && <p>{props.errorText}</p>}
+      {state.isTouched && !state.isValid && <p>{props.errorText}</p>}
     </div>
   );
 };

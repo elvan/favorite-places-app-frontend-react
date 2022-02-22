@@ -1,4 +1,8 @@
 import { Input } from '../../shared/components/forms/Input';
+import {
+  VALIDATOR_MINLENGTH,
+  VALIDATOR_REQUIRE,
+} from '../../shared/util/validators';
 import './PlaceAddPage.css';
 
 export const PlaceAddPage = () => {
@@ -10,7 +14,7 @@ export const PlaceAddPage = () => {
         label='Title'
         type='text'
         errorText='Please enter a valid title'
-        validators={[]}
+        validators={[VALIDATOR_REQUIRE(), VALIDATOR_MINLENGTH(5)]}
         onChange={() => {}}
       />
     </form>
