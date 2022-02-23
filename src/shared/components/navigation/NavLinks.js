@@ -20,13 +20,8 @@ export const NavLinks = () => {
         </NavLink>
       </li>
       <li>
-        <NavLink to='/login'>
-          <span>LOGIN</span>
-        </NavLink>
-      </li>
-      <li>
-        <NavLink to='/register'>
-          <span>REGISTER</span>
+        <NavLink to='/auth'>
+          <span>AUTH</span>
         </NavLink>
       </li>
     </ul>
