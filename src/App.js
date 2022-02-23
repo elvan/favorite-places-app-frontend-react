@@ -3,6 +3,7 @@ import { PlaceAddPage } from './places/pages/PlaceAddPage';
 import { PlaceDashboard } from './places/pages/PlaceDashboard';
 import { PlaceEditPage } from './places/pages/PlaceEditPage';
 import { MainNavigation } from './shared/components/navigation/MainNavigation';
+import { LoginPage } from './users/pages/LoginPage';
 import { UserDashboardPage } from './users/pages/UserDashboardPage';
 
 export const App = () => {
@@ -23,6 +24,9 @@ export const App = () => {
             </Route>
             <Route path='/places-edit/:placeId' exact>
               <PlaceEditPage />
+            </Route>
+            <Route path='/login' exact>
+              <LoginPage />
             </Route>
             <Redirect to='/' />
           </Switch>
