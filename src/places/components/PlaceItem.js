@@ -7,6 +7,7 @@ import './PlaceItem.css';
 
 export const PlaceItem = (props) => {
   const [showMap, setShowMap] = useState(false);
+  const [showConfirmation, setShowConfirmation] = useState(false);
 
   const handleOpenMap = () => {
     setShowMap(true);
@@ -14,6 +15,19 @@ export const PlaceItem = (props) => {
 
   const handleCloseMap = () => {
     setShowMap(false);
+  };
+
+  const handleShowConfirmation = () => {
+    setShowConfirmation(true);
+  };
+
+  const handleCloseConfirmation = () => {
+    setShowConfirmation(false);
+  };
+
+  const handleConfirmDelete = () => {
+    console.log('Deleting...');
+    handleCloseConfirmation();
   };
 
   const footer = <Button onClick={handleCloseMap}>CLOSE</Button>;
@@ -33,6 +47,28 @@ export const PlaceItem = (props) => {
         </div>
       </Modal>
 
+      <Modal
+        show={showConfirmation}
+        header='Are you sure?'
+        footer={
+          <>
+            <Button inverse onClick={handleCloseConfirmation}>
+              CANCEL
+            </Button>
+            <Button danger onClick={handleConfirmDelete}>
+              DELETE
+            </Button>
+          </>
+        }
+        footerClass='place-item__modal-actions'
+        onCancel={handleCloseConfirmation}
+      >
+        <p>
+          Do you want to delete this place? Please note that it can't be undone
+          thereafter.
+        </p>
+      </Modal>
+
       <li className='place-item'>
         <Card className='place-item__content'>
           <div className='place-item__image'>
@@ -48,7 +84,9 @@ export const PlaceItem = (props) => {
               VIEW ON MAP
             </Button>
             <Button to={`/places-edit/${props.id}`}>EDIT</Button>
-            <Button danger>DELETE</Button>
+            <Button danger onClick={handleShowConfirmation}>
+              DELETE
+            </Button>
           </div>
         </Card>
       </li>
