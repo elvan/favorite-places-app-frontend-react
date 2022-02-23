@@ -1,4 +1,5 @@
-import { Link } from 'react-router-dom';
+import { Card } from '../../shared/components/elements/Card';
+import { Button } from '../../shared/components/forms/Button';
 import { PlaceItem } from './PlaceItem';
 import './PlaceList.css';
 
@@ -6,10 +7,12 @@ export const PlaceList = (props) => {
   if (props.places.length === 0) {
     return (
       <div className='place-list center'>
-        <h2>No places found. Maybe create one?</h2>
-        <Link to='/places-add' className='btn btn-primary'>
-          Add new place
-        </Link>
+        <Card>
+          <h2>No places found. Maybe create one?</h2>
+          <div>
+            <Button to='/places-add'>Add new place</Button>
+          </div>
+        </Card>
       </div>
     );
   }

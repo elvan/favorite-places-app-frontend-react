@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { Card } from '../../shared/components/elements/Card';
 import { Button } from '../../shared/components/forms/Button';
 import { Input } from '../../shared/components/forms/Input';
 import { useForm } from '../../shared/hooks/useForm';
@@ -42,30 +43,34 @@ export const PlaceEditPage = () => {
 
   useEffect(() => {
     setIsLoading(true);
-    setFormData(
-      {
-        title: {
-          value: place?.title,
-          isValid: true,
+    if (place) {
+      setFormData(
+        {
+          title: {
+            value: place?.title,
+            isValid: true,
+          },
+          description: {
+            value: place?.description,
+            isValid: true,
+          },
+          address: {
+            value: place?.address,
+            isValid: true,
+          },
         },
-        description: {
-          value: place?.description,
-          isValid: true,
-        },
-        address: {
-          value: place?.address,
-          isValid: true,
-        },
-      },
-      true
-    );
+        true
+      );
+    }
     setIsLoading(false);
   }, [setFormData, place]);
 
   if (isLoading) {
     return (
       <div className='center'>
-        <h2>Loading...</h2>
+        <Card>
+          <h2>Loading...</h2>
+        </Card>
       </div>
     );
   }
@@ -73,7 +78,9 @@ export const PlaceEditPage = () => {
   if (!place) {
     return (
       <div className='center'>
-        <h2>Place not found!</h2>
+        <Card>
+          <h2>Place not found!</h2>
+        </Card>
       </div>
     );
   }
