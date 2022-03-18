@@ -1,6 +1,6 @@
 {
-  "name": "frontend",
-  "version": "0.5.0",
+  "name": "favorite-places-app-frontend-react",
+  "version": "0.10.0",
   "private": true,
   "dependencies": {
     "react": "^17.0.2",
