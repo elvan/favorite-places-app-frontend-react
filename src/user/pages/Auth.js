@@ -2,6 +2,7 @@ import React, { useContext, useState } from 'react';
 import Button from '../../shared/components/FormElements/Button';
 import Input from '../../shared/components/FormElements/Input';
 import Card from '../../shared/components/UIElements/Card';
+import LoadingSpinner from '../../shared/components/UIElements/LoadingSpinner';
 import { AuthContext } from '../../shared/context/auth-context';
 import { useForm } from '../../shared/hooks/form-hook';
 import {
@@ -17,6 +18,8 @@ const BACKEND_API =
 const Auth = () => {
   const auth = useContext(AuthContext);
   const [isLoginMode, setIsLoginMode] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState();
 
   const [formState, inputHandler, setFormData] = useForm(
     {
@@ -62,6 +65,8 @@ const Auth = () => {
     if (isLoginMode) {
     } else {
       try {
+        setIsLoading(true);
+
         const response = await fetch(BACKEND_API + '/users/register', {
           method: 'POST',
           headers: {
@@ -73,20 +78,26 @@ const Auth = () => {
             password: formState.inputs.password.value,
           }),
         });
+
         const responseData = await response.json();
+
         if (!response.ok) {
           throw new Error(responseData.message);
         }
-      } catch (error) {
-        console.log(error);
+
+        auth.login();
+      } catch (err) {
+        setError(err.message || 'Something went wrong, please try again.');
+      } finally {
+        setIsLoading(false);
       }
     }
-
-    auth.login();
   };
 
   return (
     <Card className='authentication'>
+      {isLoading && <LoadingSpinner asOverlay />}
+
       <h2>Login Required</h2>
       <hr />
       <form onSubmit={authSubmitHandler}>
